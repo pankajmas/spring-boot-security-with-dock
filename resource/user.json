@@ -1,0 +1,14 @@
+{
+  "id": 1,
+  "username": "example_user",
+  "first_name": "Pankaj",
+  "last_name": "Maske",
+  "email": "pankajmas@example.com",
+  "password": "pankaj@123",
+  "roles": [
+    {
+      "id": 1,
+      "name": "ROLE_ADMIN"
+    }
+  ]
+}
