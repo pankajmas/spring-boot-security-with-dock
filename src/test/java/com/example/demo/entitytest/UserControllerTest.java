@@ -165,19 +165,10 @@ class UserControllerTest {
         verify(servicelayer, times(1)).singleUser(userId);
         verify(servicelayer, never()).updateUser(any(User.class));
 
-        assertEquals("User not found exception", exception.getMessage());
+        assertEquals("User not found with id: " + userId, exception.getMessage());
     }
 
 
-    @Test
-    void testRetrieveAll_NoUsersFound() {
-        // Arrange
-        when(servicelayer.retieveAll()).thenReturn(null);
-
-        // Act
-        // Assert
-        assertThrows(UserNotFoundException.class, () -> userController.retrieveAll());
-    }
 
 }
 

@@ -2,59 +2,43 @@ package com.example.demo.security.jwt.services;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
-import org.joda.time.LocalDateTime;
+
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import com.example.demo.entity.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+@EqualsAndHashCode
+@Getter
 public class UserDetailsImpl implements UserDetails {
 	private static final long serialVersionUID = 1L;
 
-	private Long id;
+	private final Long id;
 
-	private String username;
-	private String firstName;
+	private final String username;
+	private final String firstName;
 
-	private String lastName;
+	private final String lastName;
 
-	private String email;
+	private final String email;
 
 	@JsonIgnore
-	private String password;
+	private final String password;
 
-	private LocalDateTime lastLoginTime;
-
-	private Collection<? extends GrantedAuthority> authorities;
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public void setAuthorities(Collection<? extends GrantedAuthority> authorities) {
-		this.authorities = authorities;
-	}
+	private final Collection<? extends GrantedAuthority> authorities;
 
 	public UserDetailsImpl(Long id, String username, String firstName, String lastName, String email, String password,
-			LocalDateTime lastLoginTime, Collection<? extends GrantedAuthority> authorities) {
+						   Collection<? extends GrantedAuthority> authorities) {
 		this.id = id;
 		this.username = username;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
 		this.password = password;
-		this.lastLoginTime = lastLoginTime;
 		this.authorities = authorities;
 	}
 
@@ -63,7 +47,7 @@ public class UserDetailsImpl implements UserDetails {
 				.map(role -> new SimpleGrantedAuthority(role.getName().name())).collect(Collectors.toList());
 
 		return new UserDetailsImpl(user.getId(), user.getUsername(), user.getFirstName(), user.getLastName(),
-				user.getEmail(), user.getPassword(), LocalDateTime.now(),
+				user.getEmail(), user.getPassword(),
 				authorities);
 	}
 
@@ -72,13 +56,6 @@ public class UserDetailsImpl implements UserDetails {
 		return authorities;
 	}
 
-	public Long getId() {
-		return id;
-	}
-
-	public String getEmail() {
-		return email;
-	}
 
 	@Override
 	public String getPassword() {
@@ -88,30 +65,6 @@ public class UserDetailsImpl implements UserDetails {
 	@Override
 	public String getUsername() {
 		return username;
-	}
-
-	public String getFirstName() {
-		return firstName;
-	}
-
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
 	}
 
 	@Override
@@ -133,23 +86,5 @@ public class UserDetailsImpl implements UserDetails {
 	public boolean isEnabled() {
 		return true;
 	}
-	
 
-	public LocalDateTime getLastLoginTime() {
-		return lastLoginTime;
-	}
-
-	public void setLastLoginTime(LocalDateTime lastLoginTime) {
-		this.lastLoginTime = lastLoginTime;
-	}
-
-	@Override
-	public boolean equals(Object o) {
-		if (this == o)
-			return true;
-		if (o == null || getClass() != o.getClass())
-			return false;
-		UserDetailsImpl user = (UserDetailsImpl) o;
-		return Objects.equals(id, user.id);
-	}
 }

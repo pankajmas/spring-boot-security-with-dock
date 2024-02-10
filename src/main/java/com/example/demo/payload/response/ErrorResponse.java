@@ -1,5 +1,10 @@
 package com.example.demo.payload.response;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class ErrorResponse {
 	
 	private final String error;
@@ -8,14 +13,6 @@ public class ErrorResponse {
 	public ErrorResponse(String error, String message) {
 		this.error = error;
 		this.message = message;
-	}
-
-	public String getError() {
-		return error;
-	}
-
-	public String getMessage() {
-		return message;
 	}
 
 }

@@ -6,13 +6,13 @@ import com.example.demo.entity.User;
 
 public interface Servicelayer {
 
-	public User addUser(User u);
+	 User addUser(User u);
 
-	public List<User> retieveAll();
+	 List<User> retieveAll();
 
-	public Optional<User> singleUser(long id);
+	 Optional<User> singleUser(long id);
 
-	public void delete(long id);
+	 void delete(long id);
 
 	public User updateUser(User u);
 
